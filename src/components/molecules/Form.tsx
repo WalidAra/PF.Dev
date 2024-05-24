@@ -9,19 +9,24 @@ import { Button } from "../cli/button";
 import { useRef } from "react";
 import { LuArrowUpRight } from "react-icons/lu";
 import KeyDialog from "./KeyDialog";
+import { Alert, AlertDescription, AlertTitle } from "../cli/alert";
+import { LuAlertTriangle } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 
 const Form = () => {
-  const { key } = useForm();
-
+  const navigate = useNavigate();
   const promptRef = useRef<HTMLTextAreaElement>(null);
-
+  const { key } = useForm();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!promptRef.current) return;
-    const value = promptRef.current?.value;
-    console.log(value, key);
+    const prompt = promptRef.current?.value;
+
+    if (key !== "" && prompt !== "") {
+      navigate(`/craft/${prompt}`);
+    }
   };
 
   return (
@@ -48,6 +53,17 @@ const Form = () => {
             Empower your creativity with PF.Dev. Seamlessly generate, refine,
             and deliver stunning images.
           </span>
+        </div>
+
+        <div className="w-72 sm:w-[65%] ">
+          <Alert>
+            <LuAlertTriangle className="size-5 text-red-500" />
+            <AlertTitle>Heads up!</AlertTitle>
+            <AlertDescription>
+              You should use your own openAi key , click on key button to add
+              one
+            </AlertDescription>
+          </Alert>
         </div>
 
         <div className="sm:w-96 w-80 border border-border shadow-xl bg-primary rounded-xl md:w-[600px] flex flex-col gap-1.5 py-3 px-4 ">
