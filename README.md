@@ -36,13 +36,20 @@ REACT_APP_OPENAI_API_KEY=your_openai_api_key_here
 
 ## Live Demo
 
-[Demo Website](https://pf-dev.onrender.com/) *(Replace this with your app's URL when deployed)*
+[Demo Website](https://pf-dev.onrender.com/) 
+<https://pf-dev.onrender.com/>
 
 ## Technologies Used
 
 - React
 - OpenAI API
 - HTML/CSS
+- Tailwind
+
+  
+## Packages Used
+
+- Shadcn-ui
 
 ## Contributing
 
