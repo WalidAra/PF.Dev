@@ -1,8 +1,11 @@
 export const generateImage = async (prompt: string, apiKey: string) => {
-  const endpoint = "https://api.openai.com/v1/images";
+  const endpoint = "https://api.openai.com/v1/images/generations";
 
   const requestBody = {
+    model: "dall-e-3",
     prompt: prompt,
+    n: 1,
+    size: "1024x1024",
   };
 
   const headers = {

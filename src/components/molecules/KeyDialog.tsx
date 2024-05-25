@@ -21,7 +21,6 @@ export default function KeyDialog() {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
-          type="submit"
           size={"icon"}
           className="text-muted-foreground hover:text-white hover:bg-white/10"
           variant={"default"}
@@ -34,7 +33,7 @@ export default function KeyDialog() {
           <AlertDialogTitle>Enter your openAi Key</AlertDialogTitle>
           <AlertDialogDescription>
             Don't worry this is friendly website we don't steal keys , i bet you
-            paid for gpt-3.5 turbo model you poor ass
+            paid for gpt-3.5 turbo model you poor ass .
           </AlertDialogDescription>
         </AlertDialogHeader>
         <Input
@@ -43,7 +42,9 @@ export default function KeyDialog() {
           placeholder="sk-***********************************************"
         />
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel onClick={() => setKey("")}>
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

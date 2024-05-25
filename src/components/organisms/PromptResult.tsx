@@ -1,14 +1,32 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/style-prop-object */
+import { useEffect, useState } from "react";
 import { useForm } from "../../hooks/useForm";
 import { useParams } from "react-router-dom";
+import { generateImage } from "../../lib/api/generate";
 
 const PromptResult = () => {
   const { prompt } = useParams();
+  const decodedPrompt = decodeURIComponent(prompt as string);
+
   const { key } = useForm();
 
-  console.log("====================================");
-  console.log(key, prompt);
-  console.log("====================================");
+  const [imageData, setImageData] = useState<string>("");
+
+  useEffect(() => {
+    const getImage = async () => {
+      try {
+        const res = await generateImage(decodedPrompt, key);
+
+        setImageData(res.data[0].url);
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    };
+
+    getImage();
+  }, []);
 
   return (
     <main className="w-full h-screen py-10 center">
@@ -24,15 +42,18 @@ const PromptResult = () => {
 
           <div className="relative inline max-w-full sm:max-w-[65%] min-w-0 rounded-2xl bg-[#ebebeb] px-3 py-1">
             <span className="text-left text-sm line-clamp-1 text-ellipsis">
-              A landing page hero section with a heading, leading text and an
-              opt-in form.
+              {prompt}
             </span>
           </div>
         </div>
 
         <div className="border border-border rounded-xl w-full sm:flex-1 grid place-items-center p-5">
           <img
-            src="https://generated.vusercontent.net/placeholder.svg"
+            src={
+              imageData
+                ? imageData
+                : "https://generated.vusercontent.net/placeholder.svg"
+            }
             className="w-full aspect-video object-cover"
             alt=""
           />
