@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/style-prop-object */
+
 import { useEffect, useState } from "react";
 import { useForm } from "../../hooks/useForm";
 import { useParams } from "react-router-dom";
 import { generateImage } from "../../lib/api/generate";
+import { Skeleton } from "../cli/skelton";
 
 const PromptResult = () => {
   const { prompt } = useParams();
@@ -25,7 +25,7 @@ const PromptResult = () => {
       }
     };
 
-    getImage();
+    // getImage();
   }, []);
 
   return (
@@ -48,15 +48,21 @@ const PromptResult = () => {
         </div>
 
         <div className="border border-border rounded-xl w-full sm:flex-1 grid place-items-center p-5">
-          <img
-            src={
-              imageData
-                ? imageData
-                : "https://generated.vusercontent.net/placeholder.svg"
-            }
-            className="w-full aspect-video object-cover"
-            alt=""
-          />
+          {imageData ? (
+            <img
+              src={imageData}
+              className="w-full aspect-video object-cover"
+              alt=""
+            />
+          ) : (
+            <Skeleton className="w-full aspect-video rounded-xl">
+              <img
+                src={"https://generated.vusercontent.net/placeholder.svg"}
+                className="w-full aspect-video object-cover"
+                alt=""
+              />
+            </Skeleton>
+          )}
         </div>
       </section>
     </main>
