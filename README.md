@@ -31,7 +31,6 @@ To run this app locally, follow these steps:
 
 ## Live Demo
 
-[Demo Website](https://pf-dev.onrender.com/) 
 <https://pf-dev.onrender.com/>
 
 ## Technologies Used
