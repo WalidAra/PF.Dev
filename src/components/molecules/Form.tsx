@@ -6,13 +6,13 @@ import {
   TooltipTrigger,
 } from "../cli/tooltip";
 import { Button } from "../cli/button";
-import { useRef, useState } from "react";
-import { LuArrowUpRight } from "react-icons/lu";
+import { useCallback, useRef, useState } from "react";
 import KeyDialog from "./KeyDialog";
 import { Alert, AlertDescription, AlertTitle } from "../cli/alert";
 import { LuAlertTriangle } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
+import PromptButton from "../atoms/PromptButton";
 
 const Form = () => {
   const navigate = useNavigate();
@@ -20,17 +20,34 @@ const Form = () => {
   const { key } = useForm();
   const [isError, setIsError] = useState<boolean>(false);
 
+  const prompts = [
+    "Cat with apple",
+    "Anime wallpaper",
+    "Galaxy landscape",
+    "Cyberpunk city",
+    "Fantasy dragon",
+    "Minimalist sunset",
+    "Abstract art",
+  ];
+
+  const HandleNavigate = useCallback(
+    (prom: String) => {
+      if (key === "" || prom === "") {
+        setIsError(true);
+        return;
+      } else {
+        navigate(`/craft/${prom}`);
+      }
+    },
+    [key, navigate]
+  );
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (!promptRef.current) return;
     const prompt = promptRef.current?.value;
 
-    if (key !== "" && prompt !== "") {
-      navigate(`/craft/${prompt}`);
-    }else {
-      setIsError(true);
-    }
+    HandleNavigate(prompt);
   };
 
   return (
@@ -64,13 +81,14 @@ const Form = () => {
             <LuAlertTriangle className="size-5 text-red-500" />
             <AlertTitle>Heads up!</AlertTitle>
             <AlertDescription>
-              You should use your own openAi key , click on key button to add
-              one
+              You should use your own OpenAI key. Click on the key button to add
+              one, but before you do, make sure you create an API key on
+              <a href="https://platform.openai.com/playground" className="underline ml-2 font-medium" >OpenAI</a>.
             </AlertDescription>
           </Alert>
         </div>
 
-        <div className="flex flex-col gap-2 sm:w-96 w-80 md:w-[600px]">
+        <div className="flex flex-col gap-6 sm:w-96 w-80 md:w-[600px]">
           {isError && (
             <p className="text-red-500 font-medium text-sm">
               Please ensure all fields, including the prompt and key, are filled
@@ -118,66 +136,18 @@ const Form = () => {
               </TooltipProvider>
             </div>
           </div>
-        </div>
 
-        <div className="max-w-full justify-center flex items-center gap-3 flex-wrap">
-          <Button
-            className="flex items-center rounded-full "
-            variant={"outline"}
-            size={"sm"}
-          >
-            <span>Anime Wallpaper</span>
-            <LuArrowUpRight className="size-5" />
-          </Button>
-
-          <Button
-            className="flex items-center rounded-full gap-2"
-            variant={"outline"}
-            size={"sm"}
-          >
-            <span>Regoku sword</span>
-            <LuArrowUpRight className="size-5" />
-          </Button>
-          <Button
-            className="flex items-center rounded-full gap-2"
-            variant={"outline"}
-            size={"sm"}
-          >
-            <span>batman</span>
-            <LuArrowUpRight className="size-5" />
-          </Button>
-          <Button
-            className="flex items-center rounded-full gap-2"
-            variant={"outline"}
-            size={"sm"}
-          >
-            <span>hitler</span>
-            <LuArrowUpRight className="size-5" />
-          </Button>
-          <Button
-            className="flex items-center rounded-full gap-2"
-            variant={"outline"}
-            size={"sm"}
-          >
-            <span>zanji sa3id</span>
-            <LuArrowUpRight className="size-5" />
-          </Button>
-          <Button
-            className="flex items-center rounded-full gap-2"
-            variant={"outline"}
-            size={"sm"}
-          >
-            <span>ui exmaple of login page</span>
-            <LuArrowUpRight className="size-5" />
-          </Button>
-          <Button
-            className="flex items-center rounded-full gap-2"
-            variant={"outline"}
-            size={"sm"}
-          >
-            <span>karen</span>
-            <LuArrowUpRight className="size-5" />
-          </Button>
+          <div className="w-full justify-center flex items-center gap-2 flex-wrap">
+            {prompts.map((text: string, index: number) => (
+              <PromptButton
+                onClick={() => {
+                  HandleNavigate(text);
+                }}
+                text={text}
+                key={text + index}
+              />
+            ))}
+          </div>
         </div>
       </form>
     </div>
