@@ -1,6 +1,6 @@
 # AI Image Generator App
 
-Welcome to the AI Image Generator app! This React application allows users to generate images using the OpenAI API for image generation. Users need to provide their OpenAI API key and a prompt to generate images based on their input.
+Welcome to Prompt Forge an AI Image Generator app! This React application allows users to generate images using the OpenAI API for image generation. Users need to provide their OpenAI API key and a prompt to generate images based on their input.
 
 ## Features
 
