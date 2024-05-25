@@ -14,12 +14,7 @@ To run this app locally, follow these steps:
 
 1. Clone this repository to your local machine.
 2. Install dependencies by running `npm install`.
-3. Create a `.env` file in the root directory and add your OpenAI API key:
-
-REACT_APP_OPENAI_API_KEY=your_openai_api_key_here
-
-
-4. Start the development server by running `npm start`.
+3. Start the development server by running `npm start`.
 
 ## Usage
 
