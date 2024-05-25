@@ -25,7 +25,7 @@ const PromptResult = () => {
       }
     };
 
-    // getImage();
+    getImage();
   }, []);
 
   return (
